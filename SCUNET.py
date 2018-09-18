@@ -1,27 +1,19 @@
 import re
+import json
 from urllib.parse import urlparse, parse_qs, quote, unquote
 import requests
 
 
 def login(stuid, password):
-    s = requests.Session()
-    # src = s.get("http://1.2.3.1", allow_redirects=False)
     src = requests.get("http://1.2.3.1", allow_redirects=False)
     pattern = r"href=\'(.*?)\'"
     raw_url = re.findall(pattern, src.text)[0]
-
-    # 获取请求的参数
-    parse = urlparse(raw_url)
-    query = parse.query
-    qs = parse_qs(query)
-
-    queryString = query
 
     payload = {
         "userId": stuid,
         "password": password,
         "service": "internet",
-        "queryString": queryString,
+        "queryString": urlparse(raw_url).query,
         "operatorPwd": '',
         "operatorUserId": '',
         "validcode": '',
@@ -46,8 +38,12 @@ def login(stuid, password):
 
 def logout():
     url = "http://192.168.2.135/eportal/InterFace.do?method=logout"
-    requests.get(url)
+    requests.post(url, data='')
     print("logout success")
+
+
+
+
 
 stuid = ''
 password = ''

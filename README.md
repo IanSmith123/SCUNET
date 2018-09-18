@@ -1,1 +1,2 @@
-SCUNET登录脚本
+脚本登录SCUNET
+
