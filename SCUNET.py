@@ -40,14 +40,11 @@ def login(stuid, password):
 
     # 判断登录状态
     if res['result'] == 'fail':
-        # print(res['message'])
         prompt(res['message'])
     elif res['result'] == 'success':
-        # print("login success")
         prompt(res['message'])
 
     else:
-        # print("error")
         prompt(res['message'])
 
 
@@ -78,22 +75,21 @@ def action(stuid, password):
     :return:
     """
     if len(sys.argv) == 1:
-        prompt("login")
-        exit(1)
+        # prompt("login")
+        # exit(1)
         logout()
         login(stuid, password)
 
     else:
         args = sys.argv[1]
         if args == "logout":
-            prompt("logout")
-            exit(1)
+            # prompt("logout")
+            # exit(1)
             logout()
         else:
             prompt("无法识别的指令 {}".format(args))
 
 
-stuid, password = get_user_info()
-
 if __name__ == '__main__':
+    stuid, password = get_user_info()
     action(stuid, password)
