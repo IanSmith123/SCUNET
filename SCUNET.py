@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import re
+import os
 import sys
 import json
+import getpass
 from urllib.parse import urlparse
 
 import requests
@@ -62,14 +64,36 @@ def prompt(message):
 
 
 def get_user_info():
-    j = json.load(open('password.json'))
+    home = os.path.expanduser('~')
+    filepath = os.path.join(home, '.pyscunet.json')
+
+    if not os.path.isfile(filepath):
+
+        print("未检测到账户信息，请输入账户信息")
+        with open(filepath, 'w', encoding='utf8') as f:
+            _stuid = input("请输入用户名: ")
+            # _password = input("请输入密码: ")
+            _password = getpass.getpass("输入密码，输入时密码不可见: ")
+            dic = {
+                "stuid": _stuid,
+                "password": _password
+            }
+            f.write(json.dumps(dic, indent=2))
+        print("已经保存账户信息，路径为{}".format(filepath))
+        prompt("已经保存账户信息，路径为{}".format(filepath))
+        exit(1)
+
+    j = json.load(open(filepath))
     _stuid = j['stuid']
     _password = j['password']
-
+    print(_stuid)
     return _stuid, _password
 
+# get_user_info()
+# exit(3)
 
-def action(stuid, password):
+
+def main():
     """
     判断将要执行的操作
     :return:
@@ -77,6 +101,7 @@ def action(stuid, password):
     if len(sys.argv) == 1:
         # prompt("login")
         # exit(1)
+        stuid, password = get_user_info()
         logout()
         login(stuid, password)
 
@@ -86,10 +111,17 @@ def action(stuid, password):
             # prompt("logout")
             # exit(1)
             logout()
+
+        elif args == 'reset':
+            filepath = os.path.join(os.path.expanduser('~'), '.pyscunet.json')
+            if os.path.isfile(filepath):
+                os.remove(filepath)
+                prompt("账户信息已清除")
+            else:
+                prompt("未检测到账户信息")
         else:
             prompt("无法识别的指令 {}".format(args))
 
 
 if __name__ == '__main__':
-    stuid, password = get_user_info()
-    action(stuid, password)
+    main()
