@@ -80,24 +80,24 @@ def get_user_info():
             }
             f.write(json.dumps(dic, indent=2))
         print("已经保存账户信息，路径为{}".format(filepath))
-        prompt("已经保存账户信息，路径为{}".format(filepath))
-        exit(1)
 
     j = json.load(open(filepath))
     _stuid = j['stuid']
     _password = j['password']
-    print(_stuid)
     return _stuid, _password
 
-# get_user_info()
-# exit(3)
-
+def detectportal():
+    url = "http://detectportal.firefox.com/success.txt"
+    if requests.get(url).text.strip() == 'success':
+        prompt("可正常联网, 无需登录")
 
 def main():
     """
     判断将要执行的操作
     :return:
     """
+    # 检测联网状况，判定是否需要登录
+    detectportal()
     if len(sys.argv) == 1:
         # prompt("login")
         # exit(1)
