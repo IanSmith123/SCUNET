@@ -3,21 +3,29 @@
 
 # How to use
 
-1. 环境配置
+## 环境配置
 
-   请使用python3 :)
+本程序请使用python3 :)
 
 ```bash
 pip3 install requests
 ```
 
-​	win10可使用toaster发送通知消息,可以额外安装
+- windows
+
+将`scunet.bat`所在目录放入环境变量，bat脚本内需要写绝对路径
+
+可选： 
+
+win10用户 可使用toaster发送通知消息,可以额外安装
 ```
 $ pip3 install win10toast
 ```
+- *nix
+移动本文件到`/usr/local/bin`
+(未测试)
 
-
-2. 打开终端
+## 打开终端
 
 - 登入
 
@@ -35,8 +43,8 @@ $ scunet logout
 ```bash
 $ scunet reset
 ```
-
-3. 首次使用会提示修改输入学号和账号密码, 按要求输入即可，账户信息保存在`~/.pyscunet.json`
+# Hint
+- 账户信息保存在`~/.pyscunet.json`
 
 # Todo
 - [x] win10使用toast提醒消息

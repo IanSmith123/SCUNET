@@ -88,8 +88,9 @@ def get_user_info():
 
 def detectportal():
     url = "http://detectportal.firefox.com/success.txt"
-    if requests.get(url).text.strip() == 'success':
+    if requests.get(url, timeout=5).text.strip() == 'success':
         prompt("可正常联网, 无需登录")
+        exit(0)
 
 def main():
     """
@@ -97,11 +98,11 @@ def main():
     :return:
     """
     # 检测联网状况，判定是否需要登录
-    detectportal()
     if len(sys.argv) == 1:
+        detectportal()
         # prompt("login")
-        # exit(1)
         stuid, password = get_user_info()
+        # 避免检测超时导致的误判
         logout()
         login(stuid, password)
 
