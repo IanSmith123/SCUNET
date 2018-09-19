@@ -8,9 +8,9 @@ import platform
 
 def set_scripts():
     if platform.system() == 'Windows':
-        return ['scunet.bat', "SCUNET/SCUNET.py"]
+        return ['scunet.bat', "SCUNET/scunet.py"]
     else:
-        return ['SCUNET/SCUNET.py']
+        return ['SCUNET/scunet.py']
 
 
 with open("README.md", 'r', encoding='utf8') as f:
@@ -18,7 +18,7 @@ with open("README.md", 'r', encoding='utf8') as f:
 
 setuptools.setup(
     name="scunet",
-    version="0.0.1",
+    version="0.1.0",
     author="Les1ie",
     author_email="me@les1ie.com",
     description="login scunet in terminal",
