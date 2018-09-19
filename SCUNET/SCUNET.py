@@ -44,7 +44,7 @@ def login(stuid, password):
     if res['result'] == 'fail':
         prompt(res['message'])
     elif res['result'] == 'success':
-        prompt(res['message'])
+        prompt("登录成功")
 
     else:
         prompt(res['message'])
@@ -53,7 +53,6 @@ def login(stuid, password):
 def logout():
     url = "http://192.168.2.135/eportal/InterFace.do?method=logout"
     requests.post(url, data='')
-    print("logout success")
 
 
 def prompt(message):
@@ -65,14 +64,12 @@ def prompt(message):
 
 def get_user_info():
     home = os.path.expanduser('~')
-    filepath = os.path.join(home, '.pyscunet.json')
+    filepath = os.path.join(home, '.scunet.json')
 
     if not os.path.isfile(filepath):
-
         print("未检测到账户信息，请输入账户信息")
         with open(filepath, 'w', encoding='utf8') as f:
             _stuid = input("请输入用户名: ")
-            # _password = input("请输入密码: ")
             _password = getpass.getpass("输入密码，输入时密码不可见: ")
             dic = {
                 "stuid": _stuid,
@@ -86,21 +83,26 @@ def get_user_info():
     _password = j['password']
     return _stuid, _password
 
+
 def detectportal():
     url = "http://detectportal.firefox.com/success.txt"
     if requests.get(url, timeout=5).text.strip() == 'success':
-        prompt("可正常联网, 无需登录")
-        exit(0)
+        return True
+    else:
+        return False
+
 
 def main():
     """
     判断将要执行的操作
     :return:
     """
-    # 检测联网状况，判定是否需要登录
     if len(sys.argv) == 1:
-        detectportal()
-        # prompt("login")
+        # 检测联网状况，判定是否需要登录
+        if detectportal():
+            prompt("正常联网，无需登录")
+            exit(0)
+
         stuid, password = get_user_info()
         # 避免检测超时导致的误判
         logout()
@@ -109,12 +111,11 @@ def main():
     else:
         args = sys.argv[1]
         if args == "logout":
-            # prompt("logout")
-            # exit(1)
             logout()
+            prompt("已注销")
 
         elif args == 'reset':
-            filepath = os.path.join(os.path.expanduser('~'), '.pyscunet.json')
+            filepath = os.path.join(os.path.expanduser('~'), '.scunet.json')
             if os.path.isfile(filepath):
                 os.remove(filepath)
                 prompt("账户信息已清除")

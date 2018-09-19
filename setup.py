@@ -4,19 +4,20 @@
 import setuptools
 import platform
 
-os = platform.platform()
+
+
 def set_scripts():
-    os = platform.system()
-    if os=='Windows':
-        return ['scunet.bat']
+    if platform.system() == 'Windows':
+        return ['scunet.bat', "SCUNET/SCUNET.py"]
     else:
         return ['SCUNET/SCUNET.py']
+
 
 with open("README.md", 'r', encoding='utf8') as f:
     long_description = f.read()
 
 setuptools.setup(
-    name="pyscunet",
+    name="scunet",
     version="0.0.1",
     author="Les1ie",
     author_email="me@les1ie.com",
@@ -27,8 +28,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     license="GPL v3",
     install_requires=[
-        'requests',
-        'nobug'
+        # 'requests',
+        # 'nobug'
     ],
     scripts=set_scripts(),
     classifier=[
