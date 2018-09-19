@@ -1,2 +1,6 @@
 .idea
 *.un~
+
+build
+dist
+*.egg-info
