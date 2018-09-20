@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# 寻找python3, 然后
+if `python -c 'import sys; print(sys.version_info.major)'` -eq 3:
+  python scunet.py

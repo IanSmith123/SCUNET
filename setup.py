@@ -1,39 +1,1 @@
-# Created by Les1ie on 2018/9/19.
-# Email: me@les1ie.com
-
-import setuptools
-import platform
-
-
-
-def set_scripts():
-    if platform.system() == 'Windows':
-        return ['scunet.bat', "SCUNET/scunet.py"]
-    else:
-        return ['SCUNET/scunet.py']
-
-
-with open("README.md", 'r', encoding='utf8') as f:
-    long_description = f.read()
-
-setuptools.setup(
-    name="scunet",
-    version="0.1.0",
-    author="Les1ie",
-    author_email="me@les1ie.com",
-    description="login scunet in terminal",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url='https://github.com/iansmith123/SCUNET',
-    packages=setuptools.find_packages(),
-    license="GPL v3",
-    install_requires=[
-        # 'requests',
-        # 'nobug'
-    ],
-    scripts=set_scripts(),
-    classifier=[
-        "Programming Language :: Python :: 3",
-        "Topic :: Utilities"
-    ]
-)
+# Created by Les1ie on 2018/9/19.# Email: me@les1ie.comimport setuptoolsimport platformsystem = platform.system()def set_scripts():    if system == 'Windows':        return ['scunet.bat', "script/scunet.py"]    else:        return ['scunet', 'script/scunet.py']def set_require():    if system == "Windows":        return ['win10toast', 'requests']    else:        return ['requests']with open("README.md", 'r', encoding='utf8') as f:    long_description = f.read()setuptools.setup(    name="scunet",    version="0.1.0",    author="Les1ie",    author_email="me@les1ie.com",    description="login scunet in terminal",    long_description=long_description,    long_description_content_type="text/markdown",    url='https://github.com/iansmith123/SCUNET',    packages=setuptools.find_packages(),    license="GPL v3",    install_requires=set_require(),    scripts=set_scripts(),)

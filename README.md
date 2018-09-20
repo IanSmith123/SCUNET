@@ -28,7 +28,7 @@ $ scunet logout
 $ scunet reset
 ```
 # Hint
-- 账户信息保存在`~/.pyscunet.json`
+- 账户信息保存在`~/.scunet.json`
 - win10将会使用toast提示命令执行情况，如果不需要该提示框，执行 `pip3 uninstall win10toast` 即可 
 
 # Todo
