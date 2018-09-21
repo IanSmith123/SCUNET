@@ -17,6 +17,8 @@ try:
 except ImportError:
     toast = False
 
+config_path = os.path.join(os.path.expanduser('~'), '.scunet.json')
+
 
 def login(stuid, password):
     src = requests.get("http://1.2.3.1", allow_redirects=False)
@@ -56,31 +58,46 @@ def logout():
 
 
 def prompt(message):
+    global toast
+
+    # 根据配置文件确定使用的提醒方式
     if toast:
-        toaster.show_toast("pyscunet", message, duration=3)
+        if os.path.isfile(config_path):
+            j = json.load(open(config_path))
+            toast = False if j['toast'] == 'n' else True
+
+    # 设定提示方式
+
+    if toast:
+        toaster.show_toast("SCUNET", message, duration=3)
     else:
         print(message)
 
 
 def get_user_info():
-    home = os.path.expanduser('~')
-    filepath = os.path.join(home, '.scunet.json')
-
-    if not os.path.isfile(filepath):
+    if not os.path.isfile(config_path):
         print("未检测到账户信息，请输入账户信息")
-        with open(filepath, 'w', encoding='utf8') as f:
+        with open(config_path, 'w', encoding='utf8') as f:
+            _toast = input("是否需要使用弹出式提示框提示信息(仅win10有效) y/n?")
             _stuid = input("请输入用户名: ")
             _password = getpass.getpass("输入密码，输入时密码不可见: ")
             dic = {
                 "stuid": _stuid,
-                "password": _password
+                "password": _password,
+                "toast": _toast
             }
             f.write(json.dumps(dic, indent=2))
-        print("已经保存账户信息，路径为{}".format(filepath))
+        print("已经保存账户信息，路径为{}".format(config_path))
 
-    j = json.load(open(filepath))
+    j = json.load(open(config_path))
     _stuid = j['stuid']
     _password = j['password']
+
+    _toast = True if j['toast'] == 'y' else False
+
+    global toast
+    toast = _toast
+
     return _stuid, _password
 
 
@@ -98,12 +115,12 @@ def main():
     :return:
     """
     if len(sys.argv) == 1:
+        stuid, password = get_user_info()
         # 检测联网状况，判定是否需要登录
         if detectportal():
             prompt("正常联网，无需登录")
             exit(0)
 
-        stuid, password = get_user_info()
         # 避免检测超时导致的误判
         logout()
         login(stuid, password)
@@ -115,9 +132,9 @@ def main():
             prompt("已注销")
 
         elif args == 'reset':
-            filepath = os.path.join(os.path.expanduser('~'), '.scunet.json')
-            if os.path.isfile(filepath):
-                os.remove(filepath)
+            # config_path = os.path.join(os.path.expanduser('~'), '.scunet.json')
+            if os.path.isfile(config_path):
+                os.remove(config_path)
                 prompt("账户信息已清除")
             else:
                 prompt("未检测到账户信息")
