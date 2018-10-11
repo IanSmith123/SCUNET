@@ -20,8 +20,11 @@ except ImportError:
 config_path = os.path.join(os.path.expanduser('~'), '.scunet.json')
 
 
+# config_path = "./scunet.json"
+
+
 def login(stuid, password):
-    src = requests.get("http://1.2.3.1", allow_redirects=False)
+    src = requests.get("http://202.115.35.11", allow_redirects=False)
     pattern = r"href=\'(.*?)\'"
     raw_url = re.findall(pattern, src.text)[0]
 
@@ -62,7 +65,7 @@ def prompt(message):
 
     # 根据配置文件确定使用的提醒方式
     if toast:
-        if os.path.isfile(config_path):
+        if os.path.isfile(config_path) and os.path.getsize(config_path):
             j = json.load(open(config_path))
             toast = False if j['toast'] == 'n' else True
 
@@ -89,7 +92,11 @@ def get_user_info():
             f.write(json.dumps(dic, indent=2))
         print("已经保存账户信息，路径为{}".format(config_path))
 
-    j = json.load(open(config_path))
+    if os.path.getsize(config_path):
+        j = json.load(open(config_path))
+    else:
+        prompt("请重置登录信息再继续操作")
+        exit(1)
     _stuid = j['stuid']
     _password = j['password']
 
@@ -103,10 +110,13 @@ def get_user_info():
 
 def detectportal():
     url = "http://detectportal.firefox.com/success.txt"
-    if requests.get(url, timeout=5).text.strip() == 'success':
+    try:
+        if requests.get(url, timeout=2).text.strip() == 'success':
+            return True
+        else:
+            return False
+    except:
         return True
-    else:
-        return False
 
 
 def main():
@@ -138,8 +148,19 @@ def main():
                 prompt("账户信息已清除")
             else:
                 prompt("未检测到账户信息")
+
+        elif args == 'help':
+            output = """
+            {}
+            scunet          : login
+            scunet logout   : log out
+            scunet reset    : clear user info
+            scunet help     : print this message
+            {}
+            """.format('*' * 50, '*' * 50)
+            print(output)
         else:
-            prompt("无法识别的指令 {}".format(args))
+            prompt("无法识别的指令 {}, 请运行 scunet help 查看帮助".format(args))
 
 
 if __name__ == '__main__':
