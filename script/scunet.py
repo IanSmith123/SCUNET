@@ -153,12 +153,19 @@ def main():
         elif args == 'help':
             output = """
             {}
+            
             scunet          : login
             scunet logout   : log out
             scunet reset    : clear user info
             scunet help     : print this message
+            
+            
+            Bug report URL: https://github.com/iansmith123/scunet
+            
+            powered by Les1ie.
+            
             {}
-            """.format('*' * 50, '*' * 50)
+            """.format('*' * 52, '*' * 52)
             print(output)
         else:
             prompt("无法识别的指令 {}, 请运行 scunet help 查看帮助".format(args))

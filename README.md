@@ -27,16 +27,25 @@ $ scunet logout
 ```bash
 $ scunet reset
 ```
+
+- 查看帮助信息
+
+```bash
+$ scunet help
+```
+
 # Hint
 - 账户信息保存在`~/.scunet.json`
-- win10将会使用toast提示命令执行情况，如果不需要该提示框，执行 `pip3 uninstall win10toast` 即可 
+- win10将会使用toast提示命令执行情况，如果不需要该提示框, 重设用户信息的时候选择`n`即可
 
 # Todo
 - [x] win10使用toast提醒消息
+- [x] 使用pypi进行分发
 - [ ] 使用python原生http
-- [ ] 使用pypi进行分发
 
 
+# Changelog
+- 2018-10-12 02:07:57 1.0.0 正式版释出, 只在win10下完整测试兼容性，mac和linux未完整测试
 
 # More
 
