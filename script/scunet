@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-# 寻找python3, 然后
-python3 scunet.py
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+python3 $DIR/scunet.py $1
