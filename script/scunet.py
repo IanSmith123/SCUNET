@@ -24,7 +24,7 @@ config_path = os.path.join(os.path.expanduser('~'), '.scunet.json')
 
 
 def login(stuid, password):
-    src = requests.get("http://202.115.35.11", allow_redirects=False)
+    src = requests.get("http://192.168.2.135", allow_redirects=False)
     pattern = r"href=\'(.*?)\'"
     raw_url = re.findall(pattern, src.text)[0]
 
@@ -103,7 +103,8 @@ def get_user_info():
     _toast = True if j['toast'] == 'y' else False
 
     global toast
-    toast = _toast
+    if toast:
+        toast = _toast
 
     return _stuid, _password
 
