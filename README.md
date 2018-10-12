@@ -1,6 +1,11 @@
 # SCUNET
 命令行登录SCUNET
 
+[![PyPI version](https://img.shields.io/pypi/v/scunet.svg)](https://github.com/IanSmith123/SCUNET) [![GitHub stars](https://img.shields.io/github/stars/IanSmith123/SCUNET.svg)](https://github.com/IanSmith123/SCUNET/stargazers) [![GitHub license](https://img.shields.io/github/license/IanSmith123/SCUNET.svg)](https://github.com/IanSmith123/SCUNET/blob/master/License)
+
+
+
+
 # How to use
 
 ## 安装

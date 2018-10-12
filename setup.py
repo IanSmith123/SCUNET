@@ -7,7 +7,6 @@ import os
 
 system = platform.system()
 
-
 # 影响打包的复制，暂时注释
 """
 def set_scripts():
@@ -18,12 +17,15 @@ def set_scripts():
         # return [os.path.join('script', 'scunet'), os.path.join("script", "scunet.py")]
 
 """
+
+
 def set_scripts():
     return [
         os.path.join("script", "scunet"),
         os.path.join("script", "scunet.bat"),
         os.path.join("script", "scunet.py"),
     ]
+
 
 def set_require():
     if system == "Windows" and platform.release() == 10:
