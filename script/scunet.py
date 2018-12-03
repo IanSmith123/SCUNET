@@ -24,7 +24,7 @@ config_path = os.path.join(os.path.expanduser('~'), '.scunet.json')
 
 
 def login(stuid, password):
-    src = requests.get("http://192.168.2.135", allow_redirects=False)
+    src = requests.get("http://192.168.2.135", allow_redirects=True)
     pattern = r"href=\'(.*?)\'"
     raw_url = re.findall(pattern, src.text)[0]
 
