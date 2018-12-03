@@ -39,6 +39,11 @@ $ scunet reset
 $ scunet help
 ```
 
+- 升级本脚本
+```
+$ pip3 install -U scunet -i https://pypi.org/simple
+```
+
 # Hint
 - 账户信息保存在`~/.scunet.json`
 - win10将会使用toast提示命令执行情况，如果不需要该提示框, 重设用户信息的时候选择`n`即可
@@ -51,6 +56,8 @@ $ scunet help
 
 # Changelog
 - 2018-10-12 02:07:57 1.0.0 正式版释出, 只在win10下完整测试兼容性，mac和linux未完整测试
+- 2018-12-3 12:42:10 1.1.0 Captive Portal 修改了登录网址的url跳转规则,目前的已知的两个登陆注销接口均可用, 程序只适配了新的跳转规则，未修改验证接口
+
 
 # More
 
